@@ -11,10 +11,16 @@ function setup() {
   hint: use the "new" keyword with the constructor function MyClass()
   assign the result of this function to myObj1 and then to myObj2
   */
+ myObj1 = new MyClass(width/2, height/2);
+ myObj2 = new MyClass(100, 100);
 }
 
 function draw() {
   background(200);
+  myObj1.display(); 
+  myObj1.move();
+  myObj2.display();
+  myObj2.move();
   // add code here to make your objects move and display on canvas
   
 }
@@ -35,6 +41,12 @@ function MyClass(tempX, tempY){
     this.x += this.xSpeed;
     this.y += this.ySpeed;
     
+    if(this.x > width || this.x < 0){
+      this.xSpeed *= -1; 
+    }
+    if(this.y > height || this.y < 0){
+      this.ySpeed *= -1; 
+    }
     //maybe add some code to keep it on the canvas ...
   }
   
@@ -43,7 +55,16 @@ function MyClass(tempX, tempY){
     push(); // create a transparency layer for the object
     translate(this.x, this.y); //shift the canvas (0,0) to the object location
     fill(this.color); // set the color
-    ellipse(0, 0, this.d/2, this.d);
+    ellipse(0, 0, this.d, this.d);
+    fill(0) // mouth
+    ellipse(0, 0 + this.d/4, this.d/3); 
+    fill(255); // whites of eyes
+    ellipse(0 + this.d/5, 0 - this.d/9, this.d/7);
+    ellipse(0 - this.d/5, 0 - this.d/9, this.d/7);
+    fill(0); // pupils
+    ellipse(0 + this.d/5, 0 - this.d/7, this.d/18);
+    ellipse(0 - this.d/5, 0 - this.d/7, this.d/18);
+  
     // note that when you want to use the objects properties, you need to use "this"
     // add more drawing code to make your image a little more complex
 
